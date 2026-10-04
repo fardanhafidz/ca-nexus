@@ -13,7 +13,7 @@ type Msg = { key: string; role: string; text: string; answer?: Answer | null };
 let keySeq = 0;
 const nextKey = () => `m${Date.now()}-${keySeq++}`;
 
-export default function ChatPage() {
+function ChatContent() {
   const searchParams = useSearchParams();
   const urlId = searchParams?.get("id");
   const isNew = searchParams?.get("new");
@@ -167,5 +167,14 @@ export default function ChatPage() {
       </div>
       <Inspector citation={cite} onClose={() => setCite(null)} />
     </div>
+  );
+}
+
+import { Suspense } from 'react';
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="flex h-screen items-center justify-center bg-canvas text-industrial">Loading workspace...</div>}>
+      <ChatContent />
+    </Suspense>
   );
 }
