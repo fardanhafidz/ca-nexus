@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import SlimRail from "@/components/layout/SlimRail";
+import AppSidebar from "@/components/layout/AppSidebar";
 import DocTable from "@/components/knowledge/DocTable";
 import { api, downloadFile, ApiError } from "@/lib/api";
 
@@ -25,7 +25,7 @@ export default function Knowledge() {
   useEffect(() => { load(1); }, []);
   return (
     <div className="flex h-screen">
-      <SlimRail />
+      <AppSidebar />
       <main className="flex-1 bg-canvas p-4 overflow-auto">
         <h1 className="font-semibold text-industrial mb-2">Knowledge Repository</h1>
         <div className="flex gap-2 mb-3 flex-wrap">

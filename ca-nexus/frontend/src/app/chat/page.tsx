@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import SlimRail from "@/components/layout/SlimRail";
-import Sidebar from "@/components/layout/Sidebar";
+import AppSidebar from "@/components/layout/AppSidebar";
 import ChatInput from "@/components/chat/ChatInput";
 import MessageItem from "@/components/chat/MessageItem";
 import Inspector from "@/components/chat/Inspector";
+import { useSearchParams } from "next/navigation";
 import { api, askStream, API, ApiError } from "@/lib/api";
 import type { Answer, Citation } from "@/lib/contract";
 import { listenOnce, startRecording, isRecorderSupported } from "@/lib/audio";
@@ -14,7 +14,10 @@ let keySeq = 0;
 const nextKey = () => `m${Date.now()}-${keySeq++}`;
 
 export default function ChatPage() {
-  const [sessions, setSessions] = useState<{ id: string; title: string }[]>([]);
+  const searchParams = useSearchParams();
+  const urlId = searchParams?.get("id");
+  const isNew = searchParams?.get("new");
+  
   const [sid, setSid] = useState<string | null>(null);
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [loading, setLoading] = useState(false);
@@ -22,18 +25,24 @@ export default function ChatPage() {
   const [err, setErr] = useState("");
   const [cite, setCite] = useState<Citation | null>(null);
   const [aborter, setAborter] = useState<AbortController | null>(null);
-  const [sideCollapsed, setSideCollapsed] = useState(false);
   const [draft, setDraft] = useState("");  // DEL-F4: composer text (transcript lands here for edit)
   const [recorder, setRecorder] = useState<{ stop: () => Promise<Blob> } | null>(null);
   const [recErr, setRecErr] = useState("");
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [transcript, setTranscript] = useState<string | null>(null);
 
-  const loadSessions = async () => {
-    try { setSessions(await api("/api/v1/chat/sessions")); }
-    catch (e) { setErr(e instanceof ApiError ? e.message : "Failed to load sessions."); }
-  };
-  useEffect(() => { loadSessions(); }, []);
+  useEffect(() => {
+    if (isNew) {
+      setSid(null);
+      setMsgs([]);
+      setErr("");
+      return;
+    }
+    if (urlId && urlId !== sid) {
+      open(urlId);
+    }
+  }, [urlId, isNew]);
+
   const open = async (id: string) => {
     setErr("");
     try {
@@ -92,7 +101,12 @@ export default function ChatPage() {
         ac.signal,
       );
       if (final) {
-        if (!sid) loadSessions();
+        if (!sid && final.session_id) {
+          // Instead of loadSessions(), we could force a refresh or AppSidebar will handle it on next load
+          // For PoC, maybe just let it be or refresh page
+          setSid(final.session_id);
+          window.history.replaceState(null, "", `/chat?id=${final.session_id}`);
+        }
         setMsgs((m) => [...m, { key: nextKey(), role: "assistant", text: final.summary_text, answer: final }]);
       }
     } catch (e) {
@@ -101,10 +115,8 @@ export default function ChatPage() {
     setLoading(false); setStreamStage(""); setAborter(null);
   };
   return (
-    <div className="flex h-screen">
-      <SlimRail />
-      <Sidebar sessions={sessions} active={sid} onSelect={open} onNew={() => { setSid(null); setMsgs([]); setErr(""); }}
-        onChanged={loadSessions} collapsed={sideCollapsed} onToggle={() => setSideCollapsed(!sideCollapsed)} />
+    <div className="flex h-screen w-full bg-canvas">
+      <AppSidebar activeSessionId={sid} />
       <div className="flex-1 flex flex-col bg-canvas min-w-0">
         <header className="bg-white border-b border-line p-3 flex justify-between items-center gap-2">
           <h1 className="font-semibold text-industrial text-sm">Chat Workspace</h1>

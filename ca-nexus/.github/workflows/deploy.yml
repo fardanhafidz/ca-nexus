@@ -21,7 +21,26 @@ jobs:
             cd ca-nexus || exit 1
             
             # Pull kode terbaru dari GitHub
-            git pull origin main
+            git pull origin master
+            
+            # Buat file .env otomatis
+            echo "POSTGRES_USER=mkh" > .env
+            echo "POSTGRES_PASSWORD=\${{ secrets.POSTGRES_PASSWORD || 'mkh_password' }}" >> .env
+            echo "POSTGRES_DB=mkh" >> .env
+            echo "POSTGRES_PORT=5432" >> .env
+            echo "QDRANT_PORT=6333" >> .env
+            echo "BACKEND_PORT=8000" >> .env
+            echo "FRONTEND_PORT=3000" >> .env
+            echo "JWT_SECRET=\${{ secrets.JWT_SECRET || 'e2e-test-secret-please-rotate-0123456789abcdef' }}" >> .env
+            # Gunakan public IP atau domain jika ada, fallback localhost
+            echo "CORS_ORIGINS=http://\${{ secrets.AZURE_HOST }}:3000,http://localhost:3000" >> .env
+            echo "NEXT_PUBLIC_API_BASE_URL=http://\${{ secrets.AZURE_HOST }}:8000" >> .env
+            echo "OPENAI_API_KEY=\${{ secrets.OPENAI_API_KEY }}" >> .env
+            echo "OPENROUTER_API_KEY=\${{ secrets.OPENROUTER_API_KEY }}" >> .env
+            echo "BOOTSTRAP_ADMIN_EMAIL=admin@chandraasri.com" >> .env
+            echo "BOOTSTRAP_ADMIN_PASSWORD=Admin123!-e2e-rotate" >> .env
+            echo "BOOTSTRAP_ADMIN_EMPLOYEE_ID=ADM-0001" >> .env
+            echo "BOOTSTRAP_ADMIN_DIVISION=Mechanical" >> .env
             
             # Rebuild dan jalankan docker container di latar belakang
             docker compose up --build -d
