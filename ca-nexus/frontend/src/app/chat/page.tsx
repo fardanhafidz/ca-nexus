@@ -101,11 +101,11 @@ export default function ChatPage() {
         ac.signal,
       );
       if (final) {
-        if (!sid && final.session_id) {
+        if (!sid && (final as any).session_id) {
           // Instead of loadSessions(), we could force a refresh or AppSidebar will handle it on next load
           // For PoC, maybe just let it be or refresh page
-          setSid(final.session_id);
-          window.history.replaceState(null, "", `/chat?id=${final.session_id}`);
+          setSid((final as any).session_id);
+          window.history.replaceState(null, "", `/chat?id=${(final as any).session_id}`);
         }
         setMsgs((m) => [...m, { key: nextKey(), role: "assistant", text: final.summary_text, answer: final }]);
       }

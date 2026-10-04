@@ -21,7 +21,7 @@ export default function InterlockLogicCard({ details }: { details: Record<string
           </div>
           <div>
             <p className="font-bold text-slate-800 leading-tight">{String(details.interlock_id || details.title || "Interlock Logic")}</p>
-            {details.reset && <p className="text-[11px] font-medium text-red-600 mt-0.5">Reset: {String(details.reset)}</p>}
+            {details.reset ? <p className="text-[11px] font-medium text-red-600 mt-0.5">Reset: {String(details.reset)}</p> : null}
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ export default function SparePartBOMTable({ details }: { details: Record<string,
           </div>
           <div>
             <p className="font-bold text-slate-800 leading-tight">{String(details.drawing || details.title || "Spare Part BOM")}</p>
-            {details.revision && <p className="text-[11px] font-medium text-slate-500 mt-0.5">Revision {String(details.revision)}</p>}
+            {details.revision ? <p className="text-[11px] font-medium text-slate-500 mt-0.5">Revision {String(details.revision)}</p> : null}
           </div>
         </div>
         
