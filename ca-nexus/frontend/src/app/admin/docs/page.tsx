@@ -298,6 +298,7 @@ export default function AdminDocs() {
             </div>
           </div>
         </div>
+      </main>
     </div>
   );
 }
