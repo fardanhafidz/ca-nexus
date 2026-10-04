@@ -2,7 +2,7 @@
 
 ## 1. Aturan penggunaan
 
-Backlog ini adalah **USULAN penjabaran pekerjaan** berdasarkan kebutuhan pada brief dan gap yang ditemukan. Seluruh paket kerja di bawah **belum dinyatakan selesai**. Kode aplikasi, import, indexing, maupun pengujian belum dijalankan pada tahap dokumentasi awal.
+Backlog ini adalah **USULAN penjabaran pekerjaan** berdasarkan kebutuhan pada brief dan gap yang ditemukan. Status per task ditandai langsung di judul per 20 September 2026: `[x] CLEAR` = acceptance terpenuhi di level kode; `[~] SEBAGIAN` = ada tetapi belum penuh; `[!] SALAH` = ada tetapi salah dan wajib diperbaiki; tanpa badge/`[ ] BELUM` = belum dikerjakan. Tidak ada task DIVERIFIKASI tanpa log bukti runtime.
 
 - Scope rilis setiap task, penanggung jawab, estimasi, serta tanggal pelaksanaan **belum ditentukan**; isi setelah D-01 dan D-28 dijawab.
 - Kotak `[ ]` adalah pekerjaan yang perlu dilakukan, bukan klaim fitur sudah tersedia.
@@ -44,7 +44,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 0 — Discovery dan perencanaan
 
-### T0.1 — Tetapkan scope rilis dan prioritas penggunaan
+### T0.1 — Tetapkan scope rilis dan prioritas penggunaan — [x] CLEAR
 
 - **Prasyarat:** brief dan dokumentasi konteks awal.
 - **Keputusan:** D-01, D-28.
@@ -56,7 +56,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** scope rilis, urutan prioritas, dan catatan keputusan yang ditautkan ke backlog.
 - **Diterima jika:** fitur wajib dan fitur tertunda jelas; tidak ada jadwal/kapasitas yang hanya diasumsikan dari nama folder hackathon atau label enterprise.
 
-### T0.2 — Audit sumber asli dan isi dataset secara representatif
+### T0.2 — Audit sumber asli dan isi dataset secara representatif — [x] CLEAR
 
 - **Prasyarat:** akses dataset lokal; inventaris nama file pada dokumen 02.
 - **Keputusan:** D-07; hasil audit menjadi masukan D-09 dan D-11.
@@ -69,7 +69,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** laporan audit isi dan gap, tanpa membuat data pengganti.
 - **Diterima jika:** angka 211/31 dibuktikan atau selisihnya dijelaskan; setiap kesimpulan teknis memiliki sumber; isi PPTX tidak lagi dianggap telah tercakup hanya dari filename.
 
-### T0.3 — Susun query acuan dan rancangan acceptance
+### T0.3 — Susun query acuan dan rancangan acceptance — [~] SEBAGIAN (validator belum menilai)
 
 - **Prasyarat:** T0.1 dan hasil relevan T0.2.
 - **Keputusan:** D-26, D-06, D-10, D-15.
@@ -82,7 +82,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** golden query set awal beserta rubric, role/divisi penguji, dan sumber bukti.
 - **Diterima jika:** expected answer dapat dilacak ke sumber, bukan jawaban LLM yang diasumsikan benar.
 
-### T0.4 — Lengkapi desain fondasi dan kontrak untuk slice pertama
+### T0.4 — Lengkapi desain fondasi dan kontrak untuk slice pertama — [x] CLEAR
 
 - **Prasyarat:** T0.1, informasi sumber yang relevan dari T0.2, jawaban fondasi pengguna.
 - **Keputusan:** D-02 sampai D-06, D-17 sampai D-19, D-25 sesuai slice.
@@ -96,7 +96,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 1 — Monorepo, konfigurasi, dan infrastruktur
 
-### T1.1 — Bentuk struktur monorepo dan koneksi ke dataset
+### T1.1 — Bentuk struktur monorepo dan koneksi ke dataset — [x] CLEAR
 
 - **Prasyarat:** keputusan lokasi repo/data pada T0.4.
 - **Keputusan:** D-02, D-25.
@@ -109,7 +109,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** scaffold konsisten dan referensi data yang valid.
 - **Diterima jika:** sumber ditemukan pada lingkungan target tanpa hard-code path absolut mesin pengembang atau menganggap path contoh sitasi sebagai file aktual.
 
-### T1.2 — Tetapkan dependency dan runtime yang dapat direproduksi
+### T1.2 — Tetapkan dependency dan runtime yang dapat direproduksi — [~] SEBAGIAN (backend tanpa lockfile/digest/bukti build)
 
 - **Prasyarat:** T1.1; keputusan stack.
 - **Keputusan:** D-03, D-25.
@@ -122,7 +122,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** manifest dependency dan catatan kompatibilitas.
 - **Diterima jika:** setup bersih memakai versi yang terdokumentasi; versi/model tidak diklaim didukung hanya karena ada dalam brief.
 
-### T1.3 — Implementasikan konfigurasi environment
+### T1.3 — Implementasikan konfigurasi environment — [x] CLEAR
 
 - **Prasyarat:** T1.1, T1.2.
 - **Keputusan:** D-04, D-05, D-08, D-12, D-16, D-25.
@@ -135,7 +135,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** konfigurasi tervalidasi dan contoh setup.
 - **Diterima jika:** konfigurasi salah menghasilkan pesan yang dapat ditindaklanjuti, sedangkan `.env.example` tidak berisi rahasia nyata atau nilai produksi rekaan.
 
-### T1.4 — Jalankan topologi Compose terpilih
+### T1.4 — Jalankan topologi Compose terpilih — [~] SEBAGIAN (tanpa bukti uji startup/restart/persistensi)
 
 - **Prasyarat:** T1.2, T1.3.
 - **Keputusan:** D-03, D-04, D-25.
@@ -148,7 +148,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** infrastruktur aplikasi dapat dijalankan.
 - **Diterima jika:** seluruh service terpilih dapat berkomunikasi dan data persisten tetap tersedia setelah restart sesuai konfigurasi; startup tidak bergantung pada urutan tebakan.
 
-### T1.5 — Buat schema dasar dan migration
+### T1.5 — Buat schema dasar dan migration — [x] CLEAR
 
 - **Prasyarat:** T1.4; keputusan model dasar pada T0.4.
 - **Keputusan:** D-05, D-06, D-08, D-20, D-25.
@@ -161,7 +161,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** schema dasar berversi dan koneksi ORM.
 - **Diterima jika:** migration membentuk schema konsisten dengan keputusan dan constraint menolak state tidak valid yang telah didefinisikan.
 
-### T1.6 — Bootstrap Super Admin dan data identitas awal
+### T1.6 — Bootstrap Super Admin dan data identitas awal — [x] CLEAR
 
 - **Prasyarat:** T1.5 dan hashing/auth primitive pada T3.1.
 - **Keputusan:** D-05, D-06.
@@ -175,7 +175,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 2 — Data preparation, import, dan ingestion
 
-### T2.1 — Bangun manifest seluruh sumber dalam scope
+### T2.1 — Bangun manifest seluruh sumber dalam scope — [x] CLEAR
 
 - **Prasyarat:** T0.2, T1.1.
 - **Keputusan:** D-07, D-08.
@@ -187,7 +187,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** manifest machine-readable beserta ringkasan pemeriksaan.
 - **Diterima jika:** seluruh sumber dalam scope terhitung; setiap pengecualian dijelaskan; perbedaan dengan inventaris awal 98 file dapat direkonsiliasi.
 
-### T2.2 — Finalkan data dictionary maintenance
+### T2.2 — Finalkan data dictionary maintenance — [x] CLEAR
 
 - **Prasyarat:** T0.2, T2.1.
 - **Keputusan:** D-09, D-10, D-06.
@@ -200,7 +200,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** data dictionary serta spesifikasi transformasi import.
 - **Diterima jika:** setiap kolom model memiliki sumber atau alasan metadata aplikasi yang jelas; tidak ada nama/tipe kolom maintenance yang diada-adakan.
 
-### T2.3 — Implementasikan seeding maintenance yang dapat direkonsiliasi
+### T2.3 — Implementasikan seeding maintenance yang dapat direkonsiliasi — [~] SEBAGIAN (gagal-tengah belum diuji)
 
 - **Prasyarat:** T2.2, T1.5.
 - **Keputusan:** D-09, D-25.
@@ -213,7 +213,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** data maintenance terimpor dengan laporan sumber, jumlah diterima/ditolak, dan transformasi.
 - **Diterima jika:** jumlah dan nilai dapat direkonsiliasi; target 211 berlaku bila audit membenarkannya; tidak ada row hilang diam-diam atau perubahan untuk sekadar memenuhi angka brief.
 
-### T2.4 — Tetapkan metadata dokumen dan mapping akses
+### T2.4 — Tetapkan metadata dokumen dan mapping akses — [x] CLEAR
 
 - **Prasyarat:** T2.1; kebijakan role/divisi tersedia.
 - **Keputusan:** D-06, D-07, D-12.
@@ -225,7 +225,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** mapping sumber-ke-akses dan metadata yang dapat dipakai semua indeks.
 - **Diterima jika:** metadata tidak hanya menebak divisi berdasarkan filename; sumber tanpa klasifikasi mengikuti kebijakan eksplisit.
 
-### T2.5 — Implementasikan ekstraksi PDF yang mempertahankan sumber
+### T2.5 — Implementasikan ekstraksi PDF yang mempertahankan sumber — [x] CLEAR
 
 - **Prasyarat:** T1.2, T2.1, hasil audit T0.2.
 - **Keputusan:** D-11, D-12, D-18.
@@ -238,7 +238,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** artefak ekstraksi PDF dan laporan kualitas.
 - **Diterima jika:** sampel OPL, datasheet, drawing, C&E, dan plot plan dapat ditelusuri ke halaman asli, serta kehilangan informasi teridentifikasi.
 
-### T2.6 — Implementasikan parsing PNG, drawing, dan kebutuhan spasial terpilih
+### T2.6 — Implementasikan parsing PNG, drawing, dan kebutuhan spasial terpilih — [~] SEBAGIAN (vision belum masuk pipeline ingest)
 
 - **Prasyarat:** T2.1, hasil T0.2, T2.5 untuk PDF yang membutuhkan metode tambahan.
 - **Keputusan:** D-11, D-14, D-16, D-18.
@@ -251,7 +251,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** representasi sumber gambar/diagram dengan provenance.
 - **Diterima jika:** PNG dalam scope benar-benar dapat berkontribusi pada fitur terpilih; OCR teks tidak diklaim sebagai pemahaman konektivitas penuh; koordinat/jarak tidak dibuat tanpa acuan.
 
-### T2.7 — Bangun chunking, normalisasi tag, dan provenance
+### T2.7 — Bangun chunking, normalisasi tag, dan provenance — [x] CLEAR
 
 - **Prasyarat:** T2.4, T2.5, dan T2.6 untuk sumber terpilih.
 - **Keputusan:** D-12, D-18.
@@ -264,7 +264,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** chunk siap indeks, metadata tervalidasi, dan hubungan ke sumber asli.
 - **Diterima jika:** setiap chunk memiliki scope dan provenance; kutipan tidak bergantung pada rekonstruksi kalimat model; tag baru tidak diciptakan saat normalisasi.
 
-### T2.8 — Implementasikan embedding dan indexing Qdrant
+### T2.8 — Implementasikan embedding dan indexing Qdrant — [x] CLEAR
 
 - **Prasyarat:** T1.4, T2.7.
 - **Keputusan:** D-12, D-16.
@@ -277,7 +277,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** dense index terisi dan laporan indexing yang dapat direkonsiliasi.
 - **Diterima jika:** query memakai embedding yang kompatibel; metadata filter tersedia; proses ulang tidak menggandakan chunk; biaya/jumlah token tidak diisi dengan angka perkiraan yang dilabeli aktual.
 
-### T2.9 — Satukan pipeline ingestion dan status job
+### T2.9 — Satukan pipeline ingestion dan status job — [~] SEBAGIAN (tanpa retry/cancel/tabel job)
 
 - **Prasyarat:** T1.5, T2.1, T2.4–T2.8 untuk format dalam scope.
 - **Keputusan:** D-08, D-24.
@@ -290,7 +290,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** service/job ingestion dan data monitor.
 - **Diterima jika:** status tidak berhenti pada upload sukses; pengguna Admin dapat mengetahui sumber/tahap yang gagal; restart mengikuti perilaku recovery yang disepakati.
 
-### T2.10 — Sinkronkan revision, ACL, deletion, dan invalidasi indeks
+### T2.10 — Sinkronkan revision, ACL, deletion, dan invalidasi indeks — [~] SEBAGIAN (archive tidak purge Qdrant → arsip tetap searchable)
 
 - **Prasyarat:** T2.9; T4.1/T4.3/T4.4 untuk jalur lexical/graph yang aktif.
 - **Keputusan:** D-06, D-08, D-12, D-14, D-18, D-20.
@@ -305,7 +305,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 3 — Auth, policy, dan knowledge API
 
-### T3.1 — Implementasikan registrasi dan login
+### T3.1 — Implementasikan registrasi dan login — [x] CLEAR
 
 - **Prasyarat:** T1.3, T1.5.
 - **Keputusan:** D-05, D-25.
@@ -318,7 +318,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** auth API dan helper keamanan bersama.
 - **Diterima jika:** login valid/invalid, duplikasi, pending, dan status tambahan terpilih berperilaku sesuai kontrak; password tidak disimpan sebagai teks biasa.
 
-### T3.2 — Implementasikan approval dan alokasi pengguna
+### T3.2 — Implementasikan approval dan alokasi pengguna — [x] CLEAR
 
 - **Prasyarat:** T3.1, policy T3.4.
 - **Keputusan:** D-05, D-06, D-24.
@@ -330,7 +330,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** API administrasi pengguna.
 - **Diterima jika:** hanya role berwenang dapat bertindak dan akun hasil approval mempunyai membership/status yang konsisten.
 
-### T3.3 — Implementasikan lifecycle session dan perubahan izin aktif
+### T3.3 — Implementasikan lifecycle session dan perubahan izin aktif — [x] CLEAR
 
 - **Prasyarat:** T3.1.
 - **Keputusan:** D-05, D-06, D-20.
@@ -342,7 +342,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** session lifecycle dan resolved user context.
 - **Diterima jika:** token lama mengikuti kebijakan perubahan akses yang dipilih; refresh/logout tidak menciptakan akses yang melampaui akun aktif.
 
-### T3.4 — Buat policy akses bersama untuk semua sumber
+### T3.4 — Buat policy akses bersama untuk semua sumber — [x] CLEAR
 
 - **Prasyarat:** T3.1, T3.3, mapping T2.4.
 - **Keputusan:** D-06.
@@ -354,7 +354,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** policy layer dan kontrak konteks akses.
 - **Diterima jika:** scope berasal dari backend dan tidak dapat diperluas oleh filter client, tag dalam prompt, atau output model.
 
-### T3.5 — Implementasikan akses file dan locator sitasi
+### T3.5 — Implementasikan akses file dan locator sitasi — [x] CLEAR
 
 - **Prasyarat:** T1.5, T2.1, T3.4; kontrak sitasi tersedia.
 - **Keputusan:** D-08, D-18, D-25.
@@ -367,7 +367,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** knowledge file API terotorisasi.
 - **Diterima jika:** request langsung dengan identitas sumber yang tidak diizinkan tetap ditolak; sumber valid membuka file/revision yang benar.
 
-### T3.6 — Implementasikan katalog dan pencarian metadata dokumen
+### T3.6 — Implementasikan katalog dan pencarian metadata dokumen — [x] CLEAR
 
 - **Prasyarat:** T1.5, T2.4, T3.4.
 - **Keputusan:** D-06, D-08, D-24, D-25.
@@ -379,7 +379,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** API repository pengetahuan.
 - **Diterima jika:** katalog tidak membocorkan metadata di luar scope yang disepakati dan konsisten dengan akses file sebenarnya.
 
-### T3.7 — Verifikasi matriks akses end-to-end
+### T3.7 — Verifikasi matriks akses end-to-end — [~] SEBAGIAN (matriks penuh belum diuji)
 
 - **Prasyarat:** T3.2–T3.6 dan jalur retrieval/history/attachment yang akan diuji.
 - **Keputusan:** D-06, D-26.
@@ -393,7 +393,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 4 — Hybrid/graph RAG, SQL, dan respons AI
 
-### T4.1 — Implementasikan dense, lexical, dan exact-tag candidate retrieval
+### T4.1 — Implementasikan dense, lexical, dan exact-tag candidate retrieval — [~] SEBAGIAN (lexical hanya re-scoring; sparse/BM25 terbuka)
 
 - **Prasyarat:** T2.7, T2.8, T3.4.
 - **Keputusan:** D-12, D-13.
@@ -406,7 +406,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** kandidat dense/lexical/exact-match yang dapat dibandingkan.
 - **Diterima jika:** query tag dan query semantik teruji; lexical benar-benar dijalankan jika hybrid masuk scope; akses tidak hanya difilter setelah konteks terkumpul.
 
-### T4.2 — Implementasikan fusion, ranking, dan reranking terpilih
+### T4.2 — Implementasikan fusion, ranking, dan reranking terpilih — [~] SEBAGIAN (banding dense-vs-hybrid belum dijalankan)
 
 - **Prasyarat:** T4.1, query acuan T0.3.
 - **Keputusan:** D-13, D-26.
@@ -418,7 +418,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** ranked evidence dan konfigurasi retrieval terukur.
 - **Diterima jika:** hasil dapat direproduksi dari konfigurasi dan dataset uji; kenaikan kualitas tidak diklaim tanpa hasil evaluasi.
 
-### T4.3 — Implementasikan model dan storage graph
+### T4.3 — Implementasikan model dan storage graph — [!] SALAH (typo HAS_INSTRUMENT di constraint + migration no-op)
 
 - **Prasyarat:** T2.4, T2.7; storage/deployment terpilih tersedia.
 - **Keputusan:** D-04, D-14.
@@ -430,7 +430,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** schema graph dan antarmuka penyimpanan relasi.
 - **Diterima jika:** model dapat mewakili hubungan yang dibutuhkan use case tanpa menyamakan co-occurrence tag dengan relasi teknis.
 
-### T4.4 — Ekstrak dan ingest hubungan berbasis bukti
+### T4.4 — Ekstrak dan ingest hubungan berbasis bukti — [x] CLEAR
 
 - **Prasyarat:** T4.3, ekstraksi relevan T2.5/T2.6, mapping sumber T2.4.
 - **Keputusan:** D-07, D-11, D-14.
@@ -443,7 +443,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** graph terisi dengan evidence dan laporan ekstraksi.
 - **Diterima jika:** setiap edge yang dipakai jawaban mempunyai sumber yang sesuai; tidak ada hubungan `Related_Interlock` yang dibuat hanya dari contoh tag brief.
 
-### T4.5 — Implementasikan graph-augmented retrieval
+### T4.5 — Implementasikan graph-augmented retrieval — [!] SALAH (edge tanpa evidence lolos access All lintas divisi)
 
 - **Prasyarat:** T4.2, T4.4, T3.4.
 - **Keputusan:** D-06, D-14, D-15.
@@ -456,7 +456,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** graph benar-benar memengaruhi evidence retrieval sesuai scope.
 - **Diterima jika:** jawaban relasional dapat menunjukkan asal hubungan; traversal tidak memperluas akses melalui node/edge terlarang.
 
-### T4.6 — Implementasikan analitik maintenance/Text-to-SQL
+### T4.6 — Implementasikan analitik maintenance/Text-to-SQL — [~] SEBAGIAN (role DB read-only belum ada)
 
 - **Prasyarat:** T2.3, T3.4, definisi metrik terpilih.
 - **Keputusan:** D-06, D-10, D-17, D-18.
@@ -469,7 +469,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** `sql_service.py` dan format hasil analitik yang teruji.
 - **Diterima jika:** angka dapat direproduksi dan hanya menggunakan data yang diizinkan; model tidak diberi keleluasaan write SQL atau formula rekaan.
 
-### T4.7 — Implementasikan router dan penyusunan konteks RAG
+### T4.7 — Implementasikan router dan penyusunan konteks RAG — [x] CLEAR
 
 - **Prasyarat:** T4.2 serta T4.5/T4.6 bila masuk scope.
 - **Keputusan:** D-15, D-20.
@@ -482,7 +482,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** context assembly dan route trace yang dapat diuji.
 - **Diterima jika:** query acuan menuju sumber yang tepat dan pemotongan konteks tidak menghilangkan informasi penting tanpa perilaku yang telah ditentukan.
 
-### T4.8 — Implementasikan gateway model dan structured output
+### T4.8 — Implementasikan gateway model dan structured output — [x] CLEAR
 
 - **Prasyarat:** T1.3, schema T4.10; keputusan provider/model tersedia.
 - **Keputusan:** D-16, D-17, D-19, D-24.
@@ -495,7 +495,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** `llm_gateway.py` yang menyediakan respons sesuai kontrak terpilih.
 - **Diterima jika:** output schema teruji pada konfigurasi aktual; provider alternatif tidak diasumsikan memiliki perilaku identik.
 
-### T4.9 — Implementasikan penyusunan dan validasi sitasi
+### T4.9 — Implementasikan penyusunan dan validasi sitasi — [x] CLEAR
 
 - **Prasyarat:** T2.7, T3.5; output SQL/graph jika aktif.
 - **Keputusan:** D-15, D-18.
@@ -508,7 +508,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** citation resolver/validator dan payload Inspector.
 - **Diterima jika:** judul, kutipan, halaman/region/record, dan file dapat ditelusuri; path atau snippet buatan model tidak diterima tanpa pencocokan.
 
-### T4.10 — Finalkan schema empat komponen dan hasil non-komponen
+### T4.10 — Finalkan schema empat komponen dan hasil non-komponen — [~] SEBAGIAN (details masih dict bebas)
 
 - **Prasyarat:** keputusan kontrak dari T0.4 dan hasil sumber yang diperlukan.
 - **Keputusan:** D-10, D-17, D-18, D-23.
@@ -521,7 +521,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** kontrak payload tervalidasi dan fixture lintas backend/frontend.
 - **Diterima jika:** `details: {}` tidak lagi menjadi objek bebas untuk renderer; string daftar enum dengan `|` ditolak sebagai nilai runtime.
 
-### T4.11 — Satukan alur jawaban berbasis sumber
+### T4.11 — Satukan alur jawaban berbasis sumber — [x] CLEAR
 
 - **Prasyarat:** T4.7–T4.10 serta jalur retrieval yang masuk scope.
 - **Keputusan:** D-15, D-16, D-17, D-18.
@@ -536,7 +536,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 5 — Session, streaming, dan multimodal API
 
-### T5.1 — Implementasikan session dan penyimpanan message
+### T5.1 — Implementasikan session dan penyimpanan message — [x] CLEAR
 
 - **Prasyarat:** T1.5, T3.4; schema jawaban terpilih.
 - **Keputusan:** D-20, D-25.
@@ -548,7 +548,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** chat persistence dan history API.
 - **Diterima jika:** session pengguna lain tidak dapat diakses di luar kewenangan dan history dapat dirender sesuai versi payloadnya.
 
-### T5.2 — Implementasikan transport jawaban terpilih
+### T5.2 — Implementasikan transport jawaban terpilih — [x] CLEAR
 
 - **Prasyarat:** T4.11, T5.1.
 - **Keputusan:** D-19, D-25.
@@ -560,7 +560,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** chat endpoint dan kontrak transport yang dapat digunakan frontend.
 - **Diterima jika:** browser dapat mengenali awal, progres, final, dan kegagalan tanpa menganggap fragmen JSON sebagai respons lengkap.
 
-### T5.3 — Tangani cancel, disconnect, retry, dan konsistensi penyimpanan
+### T5.3 — Tangani cancel, disconnect, retry, dan konsistensi penyimpanan — [~] SEBAGIAN (/ask idempoten; stream tanpa key + CORS belum allow header)
 
 - **Prasyarat:** T5.1, T5.2.
 - **Keputusan:** D-19, D-20, D-24.
@@ -572,7 +572,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** lifecycle request chat yang konsisten.
 - **Diterima jika:** UI dan database menyepakati status message; kegagalan tidak tersimpan sebagai jawaban final yang valid.
 
-### T5.4 — Implementasikan input gambar
+### T5.4 — Implementasikan input gambar — [x] CLEAR
 
 - **Prasyarat:** T3.4, T4.8, T5.1; fitur gambar dipilih.
 - **Keputusan:** D-20, D-21, D-16.
@@ -585,7 +585,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** image input API dengan jawaban sesuai kemampuan terpilih.
 - **Diterima jika:** gambar memengaruhi pemrosesan secara nyata; sistem tidak menebak identitas equipment atau menjadikan attachment pengetahuan semua user tanpa kebijakan.
 
-### T5.5 — Implementasikan input suara dan transkripsi
+### T5.5 — Implementasikan input suara dan transkripsi — [x] CLEAR
 
 - **Prasyarat:** T1.3, T3.4, T5.1; fitur suara dipilih.
 - **Keputusan:** D-22, D-16, D-20, D-23.
@@ -598,7 +598,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** transcript yang dapat digunakan sebagai input chat.
 - **Diterima jika:** tombol suara bukan sekadar merekam; alur sampai pertanyaan berjalan dan kesalahan transkripsi bisa ditangani pengguna sesuai desain. Task TTS tambahan hanya dibuat bila dipilih secara eksplisit.
 
-### T5.6 — Selaraskan kontrak API backend dan frontend
+### T5.6 — Selaraskan kontrak API backend dan frontend — [x] CLEAR
 
 - **Prasyarat:** schema T4.10; endpoint auth, knowledge, chat yang sudah aktif.
 - **Keputusan:** D-17, D-19, D-25.
@@ -612,7 +612,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 6 — Antarmuka pengguna
 
-### T6.1 — Susun design token dan state dasar UI
+### T6.1 — Susun design token dan state dasar UI — [x] CLEAR
 
 - **Prasyarat:** keputusan desain dan stack frontend.
 - **Keputusan:** D-03, D-23.
@@ -624,7 +624,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** fondasi visual untuk seluruh halaman.
 - **Diterima jika:** warna dan karakter pengalaman sesuai brief; aset/font/komponen tambahan berasal dari pilihan yang dicatat.
 
-### T6.2 — Bangun shell SlimRail, Sidebar, chat, dan Inspector
+### T6.2 — Bangun shell SlimRail, Sidebar, chat, dan Inspector — [x] CLEAR
 
 - **Prasyarat:** T6.1; keputusan perangkat dan navigasi.
 - **Keputusan:** D-23, D-06.
@@ -636,7 +636,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** workspace responsif yang dapat menampung chat dan sumber.
 - **Diterima jika:** area input dan sumber tetap dapat digunakan pada perangkat target; visibility navigasi konsisten dengan role tanpa menggantikan otorisasi backend.
 
-### T6.3 — Bangun halaman login, register, dan pending
+### T6.3 — Bangun halaman login, register, dan pending — [x] CLEAR
 
 - **Prasyarat:** T3.1–T3.3, T5.6, T6.1.
 - **Keputusan:** D-05, D-23.
@@ -648,7 +648,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** halaman `(auth)/login`, `(auth)/register`, dan `(auth)/pending` terhubung API.
 - **Diterima jika:** pengguna dapat menjalani alur pendaftaran sampai akses setelah approval; frontend tidak memberi akses hanya berdasarkan state lokal.
 
-### T6.4 — Bangun composer percakapan teks/gambar/suara
+### T6.4 — Bangun composer percakapan teks/gambar/suara — [~] SEBAGIAN (tanpa progress % upload)
 
 - **Prasyarat:** T5.2, T5.6, T6.2; T5.4/T5.5 untuk modalitas aktif.
 - **Keputusan:** D-19, D-21, D-22, D-23.
@@ -660,7 +660,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** input multimodal sesuai fitur yang benar-benar aktif.
 - **Diterima jika:** tiap kontrol memiliki alur end-to-end; kegagalan mic/upload/transkripsi memberikan state yang dapat dipahami.
 
-### T6.5 — Bangun renderer message dan kontrak dinamis
+### T6.5 — Bangun renderer message dan kontrak dinamis — [x] CLEAR
 
 - **Prasyarat:** T4.10, T5.2, T5.6, T6.1.
 - **Keputusan:** D-17, D-19, D-23.
@@ -673,7 +673,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** renderer yang konsisten dengan schema backend.
 - **Diterima jika:** fixture valid setiap jenis dirender; fixture invalid/unknown tertangani; tidak ada parsing string enum `a | b` sebagai nilai nyata.
 
-### T6.6 — Implementasikan ProcedureChecklist
+### T6.6 — Implementasikan ProcedureChecklist — [x] CLEAR
 
 - **Prasyarat:** T4.10, T6.5.
 - **Keputusan:** D-17, D-20, D-23.
@@ -685,7 +685,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** checklist interaktif dengan sumber langkah yang dapat dibuka.
 - **Diterima jika:** urutan/parameter tidak berubah karena interaksi UI; status centang mengikuti kebijakan persistence dan tidak dianggap catatan pekerjaan resmi tanpa definisi produk tersebut.
 
-### T6.7 — Implementasikan InterlockLogicCard
+### T6.7 — Implementasikan InterlockLogicCard — [x] CLEAR
 
 - **Prasyarat:** T4.10, T6.5.
 - **Keputusan:** D-17, D-18, D-23.
@@ -697,7 +697,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** kartu C&E yang menjaga makna data teknis.
 - **Diterima jika:** angka, unit, hubungan, dan status alert sesuai payload tervalidasi; UI tidak menambahkan logika trip sendiri.
 
-### T6.8 — Implementasikan SparePartBOMTable
+### T6.8 — Implementasikan SparePartBOMTable — [x] CLEAR
 
 - **Prasyarat:** T4.10, T6.5.
 - **Keputusan:** D-17, D-18, D-23.
@@ -709,7 +709,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** tabel suku cadang bersumber.
 - **Diterima jika:** part number/material/quantity tidak ditambahkan frontend, dan row tetap dapat dilacak setelah interaksi tabel.
 
-### T6.9 — Implementasikan RootCauseCard
+### T6.9 — Implementasikan RootCauseCard — [x] CLEAR
 
 - **Prasyarat:** T4.10, T6.5; hasil maintenance relevan.
 - **Keputusan:** D-10, D-15, D-17, D-23.
@@ -721,7 +721,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** kartu RCA dengan asal informasi yang jelas.
 - **Diterima jika:** korelasi atau hipotesis tidak terlihat sebagai root cause terkonfirmasi tanpa bukti sesuai kebijakan.
 
-### T6.10 — Implementasikan citation chips dan Inspector
+### T6.10 — Implementasikan citation chips dan Inspector — [x] CLEAR
 
 - **Prasyarat:** T3.5, T4.9, T6.2, T6.5.
 - **Keputusan:** D-18, D-23.
@@ -734,7 +734,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** pengguna dapat memeriksa sumber jawaban dari chat.
 - **Diterima jika:** chip membuka sumber yang benar melalui API terotorisasi; PNG/SQL tidak diberi halaman PDF atau snippet fiktif.
 
-### T6.11 — Bangun halaman repository pengetahuan
+### T6.11 — Bangun halaman repository pengetahuan — [x] CLEAR
 
 - **Prasyarat:** T3.5, T3.6, T6.1, T6.2.
 - **Keputusan:** D-06, D-08, D-23, D-24.
@@ -746,7 +746,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** `/knowledge` terhubung katalog aktual.
 - **Diterima jika:** data yang tampil sesuai backend dan file yang dapat dibuka konsisten dengan izin pengguna.
 
-### T6.12 — Hubungkan Sidebar dengan history dan lifecycle chat
+### T6.12 — Hubungkan Sidebar dengan history dan lifecycle chat — [x] CLEAR
 
 - **Prasyarat:** T5.1, T6.2, T6.5.
 - **Keputusan:** D-20, D-23.
@@ -760,7 +760,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 7 — Admin dan Super Admin
 
-### T7.1 — Bangun approval queue dan pengelolaan pengguna
+### T7.1 — Bangun approval queue dan pengelolaan pengguna — [x] CLEAR
 
 - **Prasyarat:** T3.2, T3.4, T6.3.
 - **Keputusan:** D-05, D-06, D-24.
@@ -772,7 +772,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** alur Admin menyetujui dan mengalokasikan pengguna.
 - **Diterima jika:** tindakan UI dan API konsisten, termasuk batas Admin terhadap role yang lebih tinggi.
 
-### T7.2 — Bangun upload dan monitor ingestion dokumen
+### T7.2 — Bangun upload dan monitor ingestion dokumen — [~] SEBAGIAN (tanpa progress %/cancel/reindex)
 
 - **Prasyarat:** T2.9, T3.4, T3.6; jalur indeks fitur aktif.
 - **Keputusan:** D-08, D-24, D-25.
@@ -785,7 +785,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** dokumen baru dapat masuk melalui aplikasi dan statusnya dapat ditelusuri.
 - **Diterima jika:** dokumen yang diunggah tersedia pada retrieval hanya sesuai readiness/ACL yang disepakati; UI tidak sekadar mensimulasikan progres.
 
-### T7.3 — Terapkan pengalaman katalog lintas divisi untuk Admin
+### T7.3 — Terapkan pengalaman katalog lintas divisi untuk Admin — [x] CLEAR
 
 - **Prasyarat:** T3.6, T6.11; keputusan batas akses Admin.
 - **Keputusan:** D-06, D-24.
@@ -797,7 +797,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** katalog Admin sesuai makna “seluruh divisi” yang telah diputuskan.
 - **Diterima jika:** akses isi tidak diperluas otomatis hanya karena Admin dapat melihat judul katalog.
 
-### T7.4 — Implementasikan audit query dan perubahan administratif
+### T7.4 — Implementasikan audit query dan perubahan administratif — [x] CLEAR
 
 - **Prasyarat:** jalur auth/chat/dokumen yang aktif dan actor context.
 - **Keputusan:** D-06, D-24, D-27.
@@ -810,7 +810,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** audit trail yang dapat digunakan pihak berwenang.
 - **Diterima jika:** event aktual dapat ditelusuri ke request/tindakan; field yang tidak dicatat tidak ditampilkan sebagai fakta.
 
-### T7.5 — Implementasikan analitik token, biaya, dan quota terpilih
+### T7.5 — Implementasikan analitik token, biaya, dan quota terpilih — [x] CLEAR
 
 - **Prasyarat:** usage gateway T4.8 dan pipeline terpilih.
 - **Keputusan:** D-04, D-16, D-24.
@@ -823,7 +823,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** analitik penggunaan dan biaya yang dapat dijelaskan.
 - **Diterima jika:** token, audio, embedding, dan biaya tidak dicampur tanpa unit; usage tidak tersedia tidak otomatis ditampilkan sebagai nol.
 
-### T7.6 — Implementasikan konfigurasi gateway Super Admin
+### T7.6 — Implementasikan konfigurasi gateway Super Admin — [x] CLEAR
 
 - **Prasyarat:** T4.8, T3.4, audit T7.4.
 - **Keputusan:** D-05, D-16, D-24.
@@ -838,7 +838,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 
 ## Fase 8 — Verifikasi, evaluasi, dan delivery
 
-### T8.1 — Jalankan pengujian terarah untuk integritas sistem
+### T8.1 — Jalankan pengujian terarah untuk integritas sistem — [~] SEBAGIAN (log backend ada di VERIFICATION-LOG; bukti CI run belum)
 
 - **Prasyarat:** modul yang akan dirilis tersedia dan keputusan tooling/acceptance.
 - **Keputusan:** D-25, D-26.
@@ -851,7 +851,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** laporan checks dan bukti integritas modul.
 - **Diterima jika:** pemeriksaan relevan lulus dan kegagalan yang tersisa dicatat spesifik; test yang hanya meniru implementasi tidak menggantikan bukti perilaku produk.
 
-### T8.2 — Evaluasi retrieval, graph, grounding, dan kalkulasi
+### T8.2 — Evaluasi retrieval, graph, grounding, dan kalkulasi — [~] SEBAGIAN (6/10 query route_ok; tanpa laporan penuh)
 
 - **Prasyarat:** T0.3, T4.11, sumber/index rilis tersedia.
 - **Keputusan:** D-10, D-13, D-14, D-15, D-26.
@@ -864,7 +864,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** laporan evaluasi yang dapat direproduksi dan tindak lanjut terprioritaskan.
 - **Diterima jika:** ambang yang disepakati tercapai atau gap dibahas sebagai hasil nyata; tidak ada klaim akurasi tanpa metode dan sampel uji.
 
-### T8.3 — Verifikasi alur end-to-end pengguna dan administrator
+### T8.3 — Verifikasi alur end-to-end pengguna dan administrator — [~] SEBAGIAN (9/14 terbukti 28 Sep–1 Okt; 5 terbuka)
 
 - **Prasyarat:** Fase 3–7 untuk fitur rilis tersedia.
 - **Keputusan:** D-06, D-17 sampai D-24, D-26.
@@ -877,7 +877,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** bukti alur produk, bukan hanya screenshot halaman statis.
 - **Diterima jika:** alur utama dapat diselesaikan dan data/status konsisten dari frontend hingga sumber/backend.
 
-### T8.4 — Verifikasi performa dan perilaku kegagalan deployment
+### T8.4 — Verifikasi performa dan perilaku kegagalan deployment — [ ] BELUM (tanpa laporan)
 
 - **Prasyarat:** build rilis kandidat; lingkungan uji yang mewakili target.
 - **Keputusan:** D-04, D-08, D-16, D-19, D-26, D-27.
@@ -889,7 +889,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** laporan performa, failure behavior, dan konfigurasi operasi kandidat.
 - **Diterima jika:** memenuhi target yang disepakati; hasil lokal tidak dinyatakan sebagai kapasitas produksi tanpa kondisi pengujian yang sesuai.
 
-### T8.5 — Siapkan deployment dan dokumentasi operasional
+### T8.5 — Siapkan deployment dan dokumentasi operasional — [~] SEBAGIAN (tanpa bukti clean-boot/backup-restore)
 
 - **Prasyarat:** konfigurasi rilis, hasil checks terkait, keputusan hosting.
 - **Keputusan:** D-02, D-25, D-27.
@@ -902,7 +902,7 @@ M2 tidak menyiratkan bahwa seluruh graph/lexical service sudah selesai jika task
 - **Hasil:** aplikasi dapat diserahkan beserta runbook dan konfigurasi contoh.
 - **Diterima jika:** pihak penerima dapat menjalankan langkah yang didokumentasikan; tidak ada instruksi yang mengandalkan credential, path, atau service yang tidak dijelaskan.
 
-### T8.6 — Laksanakan UAT dan tutup milestone rilis
+### T8.6 — Laksanakan UAT dan tutup milestone rilis — [ ] BELUM (tanpa sign-off validator)
 
 - **Prasyarat:** T8.1–T8.5 yang berlaku untuk rilis; validator tersedia.
 - **Keputusan:** D-01, D-26, D-27, D-28.

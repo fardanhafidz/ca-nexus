@@ -1,0 +1,7 @@
+{
+  "_comment": "T2.4 — Explicit division mapping. 'All' = shared. UNREVIEWED entries (access_reviewed=false) are visible but flagged for curator review; unlabeled docs are NOT silently guessed — they require this file or the --division flag.",
+  "defaults": {"opl": "All", "other": "All"},
+  "by_title": {
+    "Interlock Logic Diagram KC-4501.pdf": "Electrical & Instrumentation"
+  }
+}

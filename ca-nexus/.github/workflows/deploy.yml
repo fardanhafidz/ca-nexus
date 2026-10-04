@@ -1,0 +1,30 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Azure Virtual Machine
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USERNAME }}
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          script: |
+            # Pindah ke direktori project (asumsi clone ada di home)
+            cd ca-nexus || exit 1
+            
+            # Pull kode terbaru dari GitHub
+            git pull origin main
+            
+            # Rebuild dan jalankan docker container di latar belakang
+            docker compose up --build -d
+            
+            # Menghapus image/container lama yang tidak terpakai untuk hemat disk Azure
+            docker system prune -f

@@ -1,0 +1,9 @@
+# Local/runtime only — never commit secrets or build outputs.
+.env
+__pycache__/
+*.pyc
+node_modules/
+.next/
+*.db
+data/eval_report.json
+/app/data/

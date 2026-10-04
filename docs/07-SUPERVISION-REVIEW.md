@@ -160,3 +160,88 @@ Legenda: `[OK]` = acceptance dasar terpenuhi; `[SEBAGIAN]` = ada implementasi te
 - Checklist di atas memakai bukti baca-statis + `py_compile`; bukan verifikasi runtime.
 - Setiap task `[SEBAGIAN]`/`[MISS]` harus dilengkapi coding agent dengan bukti perintah, log, dan sampel sebelum status boleh naik ke `DIVERIFIKASI`.
 - Backlog asli `docs/05-DETAILED-BACKLOG.md` tidak diubah; kotak `[ ]` di sana tetap acuan pekerjaan, bukan klaim selesai.
+
+## 7. Re-supervisi pass-2 (19 September 2026) — belum CLEAR semua
+
+Metode: re-audit statis backend + frontend/infra oleh dua pemeriksa, plus verifikasi langsung (grep + `py_compile` 12 file = `PY_COMPILE_OK`). Docker/DB/Qdrant/LLM tidak dijalankan. Kesimpulan: **progres besar, tetapi file supervisi ini BELUM clear dan checklist kuli BELUM clear** — dilarang menandai selesai sebelum bukti runtime ada.
+
+### 7.1 Yang sudah CLEAR di level kode (statis, bukan runtime)
+
+T0.1–T0.4 (dokumen `SCOPE/AUDIT/GOLDEN-QUERIES/DATA-DICTIONARY/SLICE` ada; `SCOPE.md:1,3` benar masih USULAN, bukan keputusan final), T1.1 (mount + quoting + varian OPL), T1.3 (URL internal vs host, validator, placeholder secret), T2.1 (manifest 98 terrekonsiliasi), T2.2 (dictionary 31 kolom), T2.3 (upsert + error report + `import_batches`), T2.4 (tebak-divisi dihapus, `UNREVIEWED` deny), T2.7 (ID chunk stabil, satu pipeline), T2.8 (`query_points` + pre-filter + batch/retry/usage), T3.1 (EmailStr/min-length/enum + audit), T3.2 (transisi + bulk + audit), T3.3 (refresh/logout/blocklist + `jti` timezone-aware), T3.4 (policy tunggal + scope SQL/vector/graph/file/session), T3.5 (READY-only + registry-only + LIKE escape + locator), T4.1 (dense + lexical token-overlap + exact-tag + pre-filter), T4.5 (dua arah + resolve + policy + dedup), T4.8 (retry + usage + shape-check OpenRouter + mime benar), T4.9 (`services/citation.py` + dipakai `chat.py:161-162`), T5.2 (SSE `progress→final→done` + frontend hanya render `final`), T5.4 (upload nyata 5 MB + vision + `detected_tags`), T7.1 (alokasi divisi + bulk + role-guard + audit). Tambahan cek 20 September 2026: T2.10, T7.5, T7.6 naik ke CLEAR level-kode (detail di §7.3).
+
+### 7.2 Yang masih SEBAGIAN (sisa konkret untuk kuli)
+
+T1.2 (tanpa lockfile/digest/bukti build), T1.4 (tanpa health frontend, profil, bukti startup), T1.5 (migration ada tetapi `main.py:18` masih `create_all` — klaim README "replaces create_all" tidak sesuai kode), T1.6 (`main.py:28` masih hardcode `division="Mechanical"`), T2.5 (tanpa tabel/layout; `fitz.open` tanpa `close()` di `ingestion_service.py:18`), T2.6 (pipeline ingest masih stub `vision_pending`; tanpa OCR/region/konektivitas), T2.9 (tanpa retry/cancel/progress/reindex), T3.6 (tanpa sort/facet), T4.2 (tanpa threshold/reranker/banding hybrid), T4.3 (typo `HAS_INSTRUMENT` masih ada di `maintenance.py:113`; tanpa constraint/revision/access), T4.4 (tanpa edge `HAS_OPL`/alias/revision), T4.6 (read-only hanya validasi, tanpa role DB/`statement_timeout`), T4.7 (tanpa dedup/klasifikasi formal), T4.10 (`details` masih `dict` + tanpa `bbox`/multi-card/clarification), T4.11 (sync `/ask` tanpa error-envelope; konflik/ambigu minimal), T5.1 (tanpa rename/delete/search), T5.5 (batas 120 dtk hanya di pesan error; tanpa kebijakan audio/usage), T5.6 (mirror TS tak terverifikasi), T6.x semua (12 task: tanpa Markdown/sanitizer, collapsible/role-aware UI, polling pending, persistensi checklist backend, sitasi per-hubungan, kolom sitasi BOM, confidence RCA, revision/highlight/download Inspector, filter/sort repo, search/rename/delete history), T7.2 (tanpa progress/retry/cancel/reindex), T7.4 (tanpa retensi/UI), T7.5 (tanpa cost/quota/dashboard/persistensi), T8.1 (file uji ada, nol artefak run), T8.5 (tanpa `standalone`, lockfile, CI/CD/backup/retensi, log uji bersih).
+
+### 7.3 Yang masih BELUM (tidak boleh diklaim)
+
+T3.7 matriks (enforcement ada, bukti E2E nol), T5.3 cancel backend (nol endpoint cancel/idempotency; SSE tanpa handling diskonek), T7.3 katalog bersama (user vs admin terpisah), T8.2/T8.3/T8.4/T8.6 (nol bukti runtime).
+
+Naik dari BELUM → CLEAR level-kode pada cek 20 September 2026 (`admin.py` compile OK): T2.10 (archive/delete/replace + invalidasi Qdrant + bump versi + audit, `admin.py:244-323`; model + `migrations/versions/0002_lifecycle_usage_gateway.py`), T7.5 (`LLMUsage` persisten + `GET /usage` + quota ditegakkan `chat.py:66` + test), T7.6 (`GatewayConfig` + `GET/PUT /gateway` khusus Super Admin + audit + key tetap dari env, `admin.py:377-409`). Sisa untuk ketiganya: bukti runtime + UI (halaman admin frontend masih hanya users + docs) + pada replace, edge graph lama tidak ikut dibersihkan (delete membersihkan edge, replace tidak — `admin.py:300-323`).
+
+### 7.4 Checklist kuli: BELUM clear
+
+`manufacturing-knowledge-hub/docs/E2E-CHECKLIST.md:4-23` — seluruh 14 item masih `- [ ]` tanpa bukti command/log. Itu benar sebagai status jujur, tetapi berarti **checklist kuli belum clear**. Aturan untuk kuli: setiap item hanya boleh dicentang dengan `command + result + tanggal` terlampir; `GOLDEN-QUERIES.md` hanya tabel + rubric, tanpa hasil; klaim `AUDIT.md` 211 TER VERIFIKASI didukung statis (sheet/header/distribusi + assert `run_checks.py:196-223`) tetapi log seed/eval runtime belum ada di repo. `SCOPE.md` tetap USULAN — jangan dipakai sebagai keputusan final D-01/D-28.
+
+### 7.5 Syarat agar file supervisi ini dinyatakan clear
+
+1. Kuli menutup sisa 7.2 (minimal: hapus `create_all` ganda, perbaiki typo + `fitz.close()`, hardcode divisi, enforce 120 dtk audio, tambah sort/facet katalog atau catat penundaan di scope).
+2. Kuli menjalankan dan melampirkan bukti: `alembic upgrade head`, `pytest backend/tests -q`, `run_checks.py`, `build_manifest.py`, seed + ingest (`--limit 20`), satu bukti SSE/upload/SuperAdmin dari E2E checklist.
+3. T2.10/T5.3-cancel/T7.3/T7.6 either diimplementasikan atau dipindah resmi ke rilis berikut via keputusan scope (bukan diam-diam).
+4. Setelah itu supervisor pass-3 memverifikasi bukti runtime dan baru menaikkan status.
+
+## 8. Paket delegasi (siap dilempar ke coding agent)
+
+Aturan: satu paket = satu agent/run. Setiap paket wajib mengembalikan `file diubah + command + log/result + tanggal`. Tanpa itu status tetap SEBAGIAN/BELUM. Penundaan scope hanya sah bila dicatat di `manufacturing-knowledge-hub/docs/SCOPE.md` (USULAN → disahkan D-01), bukan diam-diam.
+
+### 8.1 Backend (DEL-B)
+
+| ID | Task ref | Target file | Kerjakan | Selesai jika |
+| --- | --- | --- | --- | --- |
+| DEL-B1 | T1.5 | `backend/app/main.py:18`, `scripts/*.py`, `backend/tests/*` | Jadikan Alembic satu-satunya path deploy; `create_all` hanya untuk tests/sqlite atau hapus dari `main.py` (pakai `lifespan` + migrate) | `grep create_all backend/app/main.py` nol; `alembic upgrade head` log terlampir |
+| DEL-B2 | T4.3 | `backend/app/models/maintenance.py:113` + migration | Perbaiki typo `HAS_INSTRUMENT`; tambah constraint `relation`, kolom revision/access/provenance atau catat defer | Typo hilang; edge invalid ditolak test |
+| DEL-B3 | T2.5 | `backend/app/services/ingestion_service.py:18` | `fitz.close()` (context manager); tambah deteksi tabel/layout atau catat batas di AUDIT | Leak hilang; halaman tabel ter-flag, bukan sukses penuh |
+| DEL-B4 | T1.6 | `backend/app/main.py:28`, `backend/app/models/user.py:49-52` | Hapus hardcode `division="Mechanical"`; seed divisi/role dari config/keputusan | Bootstrap tanpa default keras; re-run idempoten terdokumentasi |
+| DEL-B5 | T2.10 | `admin.py:244-323` | Kode archive/delete/replace SUDAH ADA (cek 20 Sep 2026). Sisa: samakan replace dengan delete untuk edge graph lama; uji propagasi + sitasi lama; lampirkan log runtime | Dokumen terhapus tak muncul di semua jalur; sitasi lama terdefinisi |
+| DEL-B6 | T5.3 | `backend/app/api/chat.py` (SSE `gen()`) | Endpoint cancel/disconnect, `Idempotency-Key`, handling diskonek klien | Abort tanpa pesan ganda; retry aman; log terlampir |
+| DEL-B7 | T4.6 | `backend/app/services/sql_service.py` | Tambah role DB read-only / `statement_timeout`, ATAU jadikan deployment-requirement terdokumentasi + validasi dipertahankan | Suntikan DML ditolak; timeout teruji atau terdokumentasi |
+| DEL-B8 | T4.2 | `backend/app/services/vector_service.py` | Threshold skor + reranker + banding dense-vs-hybrid, ATAU defer resmi | Config + hasil banding terlampir, atau defer tercatat |
+| DEL-B9 | T4.10 | `backend/app/schemas/chat.py` | `details` discriminated union + `bbox`/multi-card/clarification, ATAU defer resmi | Fixture invalid ditolak; TS mirror sinkron |
+| DEL-B10 | T7.6 | `admin.py:377-409` + halaman admin frontend | API SUDAH ADA (cek 20 Sep 2026). Sisa: buat UI Super Admin + uji ubah-efek-audit; lampirkan log runtime | Hanya role izin bisa ubah; perubahan tercermin + tercatat |
+| DEL-B11 | T5.5 | `backend/app/api/chat.py:308-329` | Enforce batas 120 dtk + kebijakan simpan/hapus audio + usage | Audio over-limit ditolak; kebijakan terdokumentasi |
+| DEL-B12 | T5.1 | `backend/app/api/chat.py`, `models/maintenance.py:79-85` | rename/delete/search session + status `queued/generating` | Operasi + status teruji lintas user |
+| DEL-B13 | T4.4 | `scripts/seed_maintenance.py:110-114` | Edge `HAS_OPL` + alias/unknown/duplikat/revision, ATAU defer resmi | Relasi tanpa bukti tidak dipakai jawaban |
+| DEL-B14 | T4.7 | `backend/app/api/chat.py:48-62` | Dedup/klasifikasi formal + injection-guard dokumen | Query ambigu/out-of-dataset berperilaku sesuai kontrak |
+
+### 8.2 Frontend (DEL-F)
+
+| ID | Task ref | Target file | Kerjakan | Selesai jika |
+| --- | --- | --- | --- | --- |
+| DEL-F1 | T6.5 | `MessageItem.tsx`, `package.json` | Markdown + sanitizer + pisah partial/final + unknown-handling | Fixture valid/invalid/unknown dirender benar; tanpa exec konten sumber |
+| DEL-F2 | T6.2/T6.12 | `SlimRail.tsx`, `Sidebar.tsx` | Role-aware + collapsible + responsif + keyboard; search/rename/delete/status/pagination history | Navigasi konsisten role; history tidak campur user/session |
+| DEL-F3 | T6.3 | `(auth)/*`, `lib/api.ts:13-18` | Validasi + loading + error spesifik; polling `/me` di pending; token httpOnly (koordinasi backend cookie) | Pending→approved redirect; tanpa akses dari state lokal |
+| DEL-F4 | T5.5/T6.4 | `lib/audio.ts`, `ChatInput.tsx`, `chat/page.tsx:81` | MediaRecorder + upload `/transcribe` + preview/edit/transmit; ID/EN + tag teknis | Rekam→edit→kirim end-to-end; gagal mic/transkripsi ada state jelas |
+| DEL-F5 | T6.6 | `ProcedureChecklist.tsx` | Persistensi backend sesuai scope ATAU catat memori-only di scope | Refresh mengikuti kebijakan; bukan work-record tanpa definisi |
+| DEL-F6 | T6.7–T6.9 | `InterlockLogicCard.tsx`, `SparePartBOMTable.tsx`, `RootCauseCard.tsx` | Sitasi per-hubungan/row, kolom sitasi + row-trace + filter/export BOM, confidence/event-id RCA | Unknown ≠ 0/false; korelasi ≠ root-cause terkonfirmasi |
+| DEL-F7 | T6.10 | `Inspector.tsx`, `knowledge.py` | Tampilkan revision + highlight + download + navigasi; tangani hilang/izin/invalid | Chip membuka sumber benar via `file/{id}` + locator tepat |
+| DEL-F8 | T6.11/T7.3 | `knowledge/page.tsx`, `admin/docs/page.tsx` | Filter doc_type/status + sort/facet/detail; satukan komponen katalog Admin vs User + label divisi/revision | Uji Admin vs User sumber sama terlampir |
+| DEL-F9 | T7.1/T7.2 | `admin/users/page.tsx`, `admin/docs/page.tsx` | UI ubah-role + gating Admin/SuperAdmin + loading/konflik; progress aktual + retry/cancel/reindex + duplikat/batch | Tindakan UI konsisten API + audit-ref |
+
+### 8.3 Infra/data (DEL-I)
+
+| ID | Task ref | Target | Kerjakan | Selesai jika |
+| --- | --- | --- | --- | --- |
+| DEL-I1 | T1.2 | `frontend/package-lock.json`, image digest | Tambah lockfile + pin digest; catat install/import/build bersih | Build bersih reproduksibel dari dokumen |
+| DEL-I2 | T1.4 | `docker-compose.yml`, `frontend/Dockerfile`, `next.config.js` | Health frontend + `output:standalone` + profil dev/prod; uji startup/restart/persistensi | Semua service healthy; data survive restart |
+| DEL-I3 | T8.5 | README runbook, CI/CD, backup/restore/rollback/retensi | Lengkapi runbook + uji dari lingkungan bersih; tambah CI/CD/backup sesuai rilis | Penerima bisa reproduce hanya dari dokumen |
+| DEL-I4 | T7.4/T7.5 | audit + `admin.py:326-372` + halaman admin frontend | Backend usage + quota SUDAH ADA (cek 20 Sep 2026). Sisa: retensi + UI audit/usage dashboard + tarif `PRICING.md` disahkan; lampirkan log runtime | Event tertelusur; unit tidak campur; nol ≠ tidak-tersedia |
+
+### 8.4 Verifikasi (DEL-V, wajib terakhir)
+
+| ID | Task ref | Kerjakan | Selesai jika |
+| --- | --- | --- | --- |
+| DEL-V1 | T8.1 | `alembic upgrade head`, `pytest backend/tests -q`, `run_checks.py`, `build_manifest.py`, seed + `ingest_docs --limit 20` | Seluruh log + tanggal terlampir di PR/runbook; kegagalan dicatat spesifik |
+| DEL-V2 | T8.2/T8.3 | Golden G-01–G-10 + 14 item E2E checklist | Tiap item dicentang dengan `command + result + tanggal`; tanpa pre-claim pass |
+| DEL-V3 | T8.4/T8.6 | Latency/concurrency/ingestion/resource + restart/provider-gagal/stream-putus + biaya; demo/UAT validator | Target/ambang atau gap dibahas sebagai hasil nyata; artefak handover lengkap |
+
+Urutan lempar yang disarankan: DEL-B1 → DEL-B4 → DEL-V1 (fondasi) → DEL-B5/B6 + DEL-F4 (akses & transport) → DEL-F1/F7 (jawaban bersumber) → DEL-V2 → DEL-I/DEL-V3 (handover).

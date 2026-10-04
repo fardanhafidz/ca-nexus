@@ -1,0 +1,63 @@
+[
+  {
+    "name": "valid-interlock",
+    "valid": true,
+    "payload": {
+      "schema_version": "v1",
+      "summary_text": "SEQ-4501 trips on high vibration.",
+      "equipment_tag": "KC-4501",
+      "component_type": "interlock_logic",
+      "component_payload": {
+        "title": "SEQ-4501",
+        "alert_level": "critical",
+        "details": {
+          "interlock_id": "SEQ-4501",
+          "causes": [
+            {"instrument_tag": "VSHH-4505", "condition": "high vibration",
+             "setpoint": "11.2", "unit": "mm/s", "effect": "trip KC-4501"}
+          ]
+        }
+      },
+      "citations": []
+    }
+  },
+  {
+    "name": "valid-clarification",
+    "valid": true,
+    "payload": {
+      "summary_text": "Which equipment?",
+      "component_type": "clarification",
+      "component_payload": {
+        "title": "Ambiguous",
+        "alert_level": "normal",
+        "details": {"question": "Which equipment?", "options": ["KC-4501"]}
+      },
+      "citations": []
+    }
+  },
+  {
+    "name": "invalid-enum-string",
+    "valid": false,
+    "payload": {
+      "summary_text": "x",
+      "component_type": "procedure_checklist | interlock_logic",
+      "component_payload": {"title": "t", "alert_level": "normal", "details": {}},
+      "citations": []
+    }
+  },
+  {
+    "name": "invalid-details-shape",
+    "valid": false,
+    "payload": {
+      "summary_text": "x",
+      "equipment_tag": "KC-4501",
+      "component_type": "bom_table",
+      "component_payload": {
+        "title": "BOM",
+        "alert_level": "normal",
+        "details": {"items": "not-a-list"}
+      },
+      "citations": []
+    }
+  }
+]

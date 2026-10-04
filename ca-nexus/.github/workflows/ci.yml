@@ -1,0 +1,29 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r ca-nexus/backend/requirements.txt
+      - run: python -m py_compile $(find ca-nexus/backend ca-nexus/scripts -name '*.py')
+      - run: python ca-nexus/backend/tests/run_checks.py
+      - run: pytest ca-nexus/backend/tests -q
+  frontend:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: ca-nexus/frontend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: npm ci || npm install
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run build
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose --project-directory ca-nexus config > /dev/null
