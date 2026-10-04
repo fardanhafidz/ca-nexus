@@ -17,7 +17,12 @@ jobs:
           username: ${{ secrets.AZURE_USERNAME }}
           key: ${{ secrets.AZURE_SSH_KEY }}
           script: |
-            # Pindah ke direktori project (asumsi clone ada di home)
+            # Pastikan repository sudah ada, jika belum di-clone otomatis
+            if [ ! -d "ca-nexus" ]; then
+              git clone https://github.com/fardanhafidz/ca-nexus.git
+            fi
+            
+            # Pindah ke direktori project
             cd ca-nexus || exit 1
             
             # Pull kode terbaru dari GitHub
